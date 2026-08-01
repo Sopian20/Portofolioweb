@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sopian Anasari - Portfolio</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- Global Styles & Variables --- */
+        :root {
+            --bg-color: #070a0e;
+            --card-bg: rgba(18, 24, 33, 0.75);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent-emerald: #10b981;
+            --accent-glow: #34d399;
+            --accent-blue: #3b82f6;
+            --accent-purple: #8b5cf6;
+            --green-status: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-bottom: 50px;
+            position: relative;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(16, 185, 129, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 85% 60%, rgba(59, 130, 246, 0.10) 0%, transparent 40%),
+                radial-gradient(circle at 50% 90%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2310b981' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            background-attachment: fixed;
+        }
+
+        /* --- Stylish Loading Screen Styles --- */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-color);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        #loading-screen.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-box {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loader-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: var(--accent-glow);
+            border-right-color: var(--accent-emerald);
+            animation: spin 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+            box-shadow: 0 0 20px rgba(52, 211, 153, 0.2);
+        }
+
+        .loader-ring-outer {
+            position: absolute;
+            width: 120%;
+            height: 120%;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            border-bottom-color: var(--accent-blue);
+            animation: spin-reverse 1.8s linear infinite;
+        }
+
+        .loader-icon {
+            color: var(--accent-glow);
+            font-size: 2rem;
+            animation: pulse-icon 1.5s ease-in-out infinite;
+        }
+
+        .loader-text {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            color: var(--accent-glow);
+            text-transform: uppercase;
+            animation: pulse-text 1.5s infinite ease-in-out;
+            text-shadow: 0 0 10px rgba(52, 211, 153, 0.4);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes spin-reverse {
+            0% { transform: rotate(360deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        @keyframes pulse-icon {
+            0%, 100% { transform: scale(0.9); opacity: 0.8; }
+            50% { transform: scale(1.15); opacity: 1; }
+        }
+
+        @keyframes pulse-text {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- Navbar --- */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(7, 10, 14, 0.8);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo i {
+            color: var(--accent-glow);
+        }
+
+        .nav-links a {
+            margin: 0 12px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--text-primary);
+        }
+
+        .nav-links a.active {
+            border-bottom: 2px solid var(--accent-emerald);
+            padding-bottom: 5px;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .btn-outline {
+            border: 1px solid var(--card-border);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent-emerald);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--card-border);
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: 0.9rem;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent-emerald);
+        }
+
+        /* --- Music Controller Button --- */
+        .music-btn {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(52, 211, 153, 0.3);
+            color: var(--accent-glow);
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.3s;
+        }
+
+        .music-btn:hover {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: var(--accent-emerald);
+        }
+
+        /* --- Hero Section --- */
+        .hero-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 60px 0;
+            gap: 40px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(52, 211, 153, 0.3);
+            color: #6ee7b7;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #34d399, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+
+        .hero-desc {
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, var(--accent-emerald), var(--accent-blue));
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .social-links a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 38px;
+            height: 38px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            margin-right: 10px;
+            color: var(--text-secondary);
+            transition: 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--text-primary);
+            border-color: var(--accent-emerald);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Avatar */
+        .avatar-wrapper {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            padding: 8px;
+            background: linear-gradient(135deg, var(--accent-glow), transparent);
+            box-shadow: 0 0 35px rgba(16, 185, 129, 0.25);
+        }
+
+        .avatar-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            background-color: #121821;
+        }
+
+        .status-badge {
+            position: absolute;
+            bottom: 10px;
+            right: -10px;
+            background: rgba(18, 24, 33, 0.95);
+            border: 1px solid var(--card-border);
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--green-status);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--green-status);
+        }
+
+        /* --- Common Cards & Headers --- */
+        .card-box {
+            background: var(--card-bg);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .section-header {
+            margin-bottom: 25px;
+        }
+
+        .section-header h3 {
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-header i {
+            color: var(--accent-glow);
+        }
+
+        /* --- About Section --- */
+        .about-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .about-left h3 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .about-left p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .btn-text {
+            color: var(--accent-glow);
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.3s;
+        }
+
+        .btn-text:hover {
+            gap: 10px;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--card-border);
+            padding: 12px 16px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .info-card i {
+            color: var(--accent-glow);
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        .info-title {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .info-value {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* --- Skills Section --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 20px;
+            transition: 0.3s ease;
+        }
+
+        .skill-card:hover {
+            border-color: var(--accent-emerald);
+            transform: translateY(-3px);
+            background: rgba(16, 185, 129, 0.04);
+        }
+
+        .skill-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .skill-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(52, 211, 153, 0.1);
+            color: var(--accent-glow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .skill-name {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .skill-desc {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--card-border);
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-radius: 6px;
+        }
+
+        /* --- Projects Section --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: 0.3s;
+        }
+
+        .project-card:hover {
+            border-color: var(--accent-emerald);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .project-top h4 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .project-top p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .project-tag {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 12px;
+            background: rgba(16, 185, 129, 0.15);
+            color: #6ee7b7;
+            border: 1px solid rgba(52, 211, 153, 0.3);
+        }
+
+        .project-links {
+            display: flex;
+            gap: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 15px;
+        }
+
+        .project-link {
+            font-size: 0.85rem;
+            color: var(--accent-glow);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+
+        .project-link:hover {
+            color: var(--text-primary);
+        }
+
+        /* --- Timeline Section --- */
+        .timeline-container {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 5px;
+            bottom: 5px;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent-emerald), var(--accent-blue));
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -30px;
+            top: 5px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--bg-color);
+            border: 3px solid var(--accent-glow);
+            box-shadow: 0 0 10px rgba(52, 211, 153, 0.5);
+        }
+
+        .timeline-date {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 2px 10px;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(52, 211, 153, 0.3);
+            color: #6ee7b7;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .timeline-content {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--card-border);
+            padding: 20px;
+            border-radius: 12px;
+            transition: 0.3s;
+        }
+
+        .timeline-content:hover {
+            border-color: var(--accent-emerald);
+            transform: translateX(5px);
+        }
+
+        .timeline-content h4 {
+            font-size: 1.05rem;
+            margin-bottom: 4px;
+        }
+
+        .timeline-subtitle {
+            font-size: 0.85rem;
+            color: var(--accent-blue);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .timeline-content p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 768px) {
+            .hero-section {
+                flex-direction: column-reverse;
+                text-align: center;
+                padding: 40px 0;
+            }
+            .about-section {
+                grid-template-columns: 1fr;
+            }
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 20px;
+            }
+            .nav-links {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 5px;
+            }
+            .hero-btns {
+                justify-content: center;
+            }
+            .hero-desc {
+                margin: 0 auto 25px auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Animasi Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader-box">
+            <div class="loader-ring-outer"></div>
+            <div class="loader-ring"></div>
+            <i class="fa-solid fa-tree loader-icon"></i>
+        </div>
+        <div class="loader-text">Loading Workspace...</div>
+    </div>
+
+    <!-- Background Audio Element (Autoplay MP3 Direct Link) -->
+    <audio id="bg-music" loop autoplay>
+        <source src="https://mp3tourl.com/audio/1785593388259-fadc7d71-bc72-4d39-a1b2-08b2a2e87e75.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Header / Navbar -->
+    <header class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-tree"></i> SOPIAN ANASARI
+        </div>
+        <nav class="nav-links">
+            <a href="#home" class="active">Home</a>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#timeline">Timeline</a>
+        </nav>
+        <div class="nav-actions">
+            <!-- Quick Music Controller Button -->
+            <button class="music-btn" id="musicToggle" title="Play/Pause Background Music">
+                <i class="fa-solid fa-music"></i> <span id="musicStatus">Music On</span>
+            </button>
+            <a href="#" class="btn-outline"><i class="fa-solid fa-download"></i> Download CV</a>
+            <button class="theme-toggle" id="themeToggle"><i class="fa-solid fa-leaf"></i></button>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Hero Section -->
+        <section id="home" class="hero-section">
+            <div class="hero-content">
+                <div class="badge">Hello, I'm 👋</div>
+                <h1>Sopian Anasari</h1>
+                <h2 class="gradient-text">Developer & Problem Solver</h2>
+                <p class="hero-desc">
+                    I build modern web applications, tools, and automation solutions using Python, Flask, and modern technologies.
+                </p>
+                <div class="hero-btns">
+                    <a href="#projects" class="btn-primary"><i class="fa-solid fa-compass"></i> View My Work</a>
+                </div>
+                <div class="social-links">
+                    <a href="https://github.com/Sopian20" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+                    <a href="https://www.tiktok.com/@web3xai" target="_blank" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
+            </div>
+            
+            <div class="hero-avatar">
+                <div class="avatar-wrapper">
+                    <img src="https://i.ibb.co.com/tPYjJhKB/Gunung-gede-fyp-fyp-pendakifomo-12.webp" alt="Sopian Anasari">
+                    <div class="status-badge">
+                        <span class="status-dot"></span> Available for work
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Me Section -->
+        <section id="about" class="about-section card-box">
+            <div class="about-left">
+                <h3><i class="fa-solid fa-mountain-sun"></i> About Me</h3>
+                <p>
+                    Saya adalah seorang pengembang yang fokus pada pembuatan aplikasi web, otomatisasi, dan tools yang membantu menyelesaikan masalah sehari-hari.
+                </p>
+                <p>
+                    Saya suka belajar hal baru, menjelajahi tantangan baru baik di dunia pemrograman maupun alam terbuka, serta selalu berusaha membuat kode yang efisien.
+                </p>
+                <a href="#skills" class="btn-text">Explore My Skills <i class="fa-solid fa-chevron-right"></i></a>
+            </div>
+
+            <div class="about-grid">
+                <div class="info-card">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div>
+                        <span class="info-title">Location</span>
+                        <span class="info-value">Bogor, Indonesia</span>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <i class="fa-regular fa-calendar"></i>
+                    <div>
+                        <span class="info-title">Age</span>
+                        <span class="info-value">22 Tahun</span>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <i class="fa-solid fa-briefcase"></i>
+                    <div>
+                        <span class="info-title">Job</span>
+                        <span class="info-value">Pegawai Honorer KUA</span>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <i class="fa-regular fa-envelope"></i>
+                    <div>
+                        <span class="info-title">Email</span>
+                        <span class="info-value">sopiananasari@example.com</span>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <div>
+                        <span class="info-title">Education</span>
+                        <span class="info-value">SMK - Pemasaran</span>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <i class="fa-solid fa-person-hiking"></i>
+                    <div>
+                        <span class="info-title">Hobby</span>
+                        <span class="info-value">Coding & Hiking</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="card-box">
+            <div class="section-header">
+                <h3><i class="fa-solid fa-laptop-code"></i> Skills & Expertise</h3>
+            </div>
+            
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div class="skill-icon"><i class="fa-brands fa-python"></i></div>
+                        <div class="skill-name">Python & Backend</div>
+                    </div>
+                    <p class="skill-desc">Pengembangan backend, pembuatan REST API, dan otomatisasi skrip menggunakan Python dan Flask.</p>
+                    <div class="tag-list">
+                        <span class="tag">Python</span>
+                        <span class="tag">Flask</span>
+                        <span class="tag">REST API</span>
+                        <span class="tag">Automation</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div class="skill-icon"><i class="fa-solid fa-chart-line"></i></div>
+                        <div class="skill-name">TradingScript</div>
+                    </div>
+                    <p class="skill-desc">Pemrograman indikator teknis dan logika bot strategi kuantitatif pada platform TradingView.</p>
+                    <div class="tag-list">
+                        <span class="tag">Pine Script v5</span>
+                        <span class="tag">TradingView</span>
+                        <span class="tag">Backtesting</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div class="skill-icon"><i class="fa-solid fa-code"></i></div>
+                        <div class="skill-name">Frontend Basics</div>
+                    </div>
+                    <p class="skill-desc">Membangun antarmuka web yang bersih, responsif, dan konsisten dengan HTML, CSS, dan JavaScript dasar.</p>
+                    <div class="tag-list">
+                        <span class="tag">HTML5</span>
+                        <span class="tag">CSS3</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">Git</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="card-box">
+            <div class="section-header">
+                <h3><i class="fa-solid fa-cubes"></i> Featured Projects</h3>
+            </div>
+
+            <div class="projects-grid">
+                <!-- Project 1: Web3xai -->
+                <div class="project-card">
+                    <div class="project-top">
+                        <h4>Web3xAI Project</h4>
+                        <p>Repositori eksplorasi teknologi Web3 dan Artificial Intelligence yang mencakup otomasi skrip, integrasi AI, serta eksperimen media visual modern.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Web3</span>
+                            <span class="project-tag">AI Tools</span>
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">Automation</span>
+                        </div>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/Sopian20/Web3xai" target="_blank" class="project-link"><i class="fa-brands fa-github"></i> Repository</a>
+                    </div>
+                </div>
+
+                <!-- Project 2: YouTube Video Downloader -->
+                <div class="project-card">
+                    <div class="project-top">
+                        <h4>YouTube Video Downloader</h4>
+                        <p>Alat pengunduh video YouTube otomatis berbasis Python yang efisien untuk mengunduh dan mengelola media video dengan cepat.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">Downloader</span>
+                            <span class="project-tag">Media Tool</span>
+                            <span class="project-tag">Automation</span>
+                        </div>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/Sopian20/video_yt_downloder" target="_blank" class="project-link"><i class="fa-brands fa-github"></i> Repository</a>
+                    </div>
+                </div>
+
+                <!-- Project 3: Trading Bot & Custom Indicator -->
+                <div class="project-card">
+                    <div class="project-top">
+                        <h4>Trading Bot & Custom Indicator</h4>
+                        <p>Skrip Pine Script kustom untuk TradingView yang melakukan analisis tren, konfirmasi sinyal entry/exit, dan strategi backtesting otomatis.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Pine Script v5</span>
+                            <span class="project-tag">TradingView</span>
+                            <span class="project-tag">Algorithmic Trading</span>
+                        </div>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/Sopian20" target="_blank" class="project-link"><i class="fa-brands fa-github"></i> Repository</a>
+                    </div>
+                </div>
+
+                <!-- Project 4: KUA Digital Helper Tools -->
+                <div class="project-card">
+                    <div class="project-top">
+                        <h4>KUA Digital Helper Tools</h4>
+                        <p>Aplikasi web interaktif sederhana berbasis Python/Flask untuk mempercepat pengelolaan data administrasi dan efisiensi alur kerja layanan publik KUA.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">Flask</span>
+                            <span class="project-tag">Automation</span>
+                        </div>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/Sopian20" target="_blank" class="project-link"><i class="fa-brands fa-github"></i> Source Code</a>
+                    </div>
+                </div>
+
+                <!-- Project 5: AI Video & Visual Media Content -->
+                <div class="project-card">
+                    <div class="project-top">
+                        <h4>AI Video & Visual Media Content</h4>
+                        <p>Eksperimen edukasi dan kreasi konten visual berbasis AI serta teknologi Web3 yang dipublikasikan secara konsisten untuk platform TikTok.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">AI Generation</span>
+                            <span class="project-tag">Media Production</span>
+                            <span class="project-tag">TikTok</span>
+                        </div>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://www.tiktok.com/@web3xai" target="_blank" class="project-link"><i class="fa-brands fa-tiktok"></i> Watch Videos</a>
+                    </div>
+                </div>
+
+                <!-- Project 6: Fitness & Calorie Tracker App -->
+                <div class="project-card">
+                    <div class="project-top">
+                        <h4>Fitness & Calorie Tracker App</h4>
+                        <p>Dashboard personal berbasis web untuk mencatat asupan kalori harian, distribusi makronutrisi, serta progres volume angkatan beban.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">Web App</span>
+                            <span class="project-tag">Health Analytics</span>
+                        </div>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/Sopian20" target="_blank" class="project-link"><i class="fa-brands fa-github"></i> Source Code</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline Section -->
+        <section id="timeline" class="card-box">
+            <div class="section-header">
+                <h3><i class="fa-solid fa-route"></i> Experience & Journey</h3>
+            </div>
+            
+            <div class="timeline-container">
+                <!-- Timeline Item 1 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <span class="timeline-date">2025 - Present</span>
+                    <div class="timeline-content">
+                        <h4>Algorithmic Trading & Bot Development</h4>
+                        <span class="timeline-subtitle">Independent Exploration</span>
+                        <p>Mengembangkan dan menguji strategi trading kuantitatif, otomasi Pine Script, serta perbaikan logika indikator di platform TradingView.</p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 2 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <span class="timeline-date">2024 - Present</span>
+                    <div class="timeline-content">
+                        <h4>Pegawai Honorer</h4>
+                        <span class="timeline-subtitle">Kantor Urusan Agama (KUA)</span>
+                        <p>Mengelola administrasi digital, pelayanan publik, serta membantu optimalisasi sistem data operasional sehari-hari.</p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 3 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <span class="timeline-date">2023 - Present</span>
+                    <div class="timeline-content">
+                        <h4>Independent Developer & Content Creator</h4>
+                        <span class="timeline-subtitle">Self-Employed / Web3 & AI</span>
+                        <p>Mengembangkan skrip otomatisasi Python, integrasi AI, serta membuat konten edukatif seputar teknologi modern dan pemrograman.</p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 4 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <span class="timeline-date">2019 - 2022</span>
+                    <div class="timeline-content">
+                        <h4>SMK - Pemasaran</h4>
+                        <span class="timeline-subtitle">Pendidikan Formal</span>
+                        <p>Mempelajari dasar-dasar komunikasi bisnis, analisis pasar, serta strategi digital marketing yang kini melengkapi keahlian dalam pengembangan produk web.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Script Pengendali Animasi Loading & Pemutar Audio Otomatis -->
+    <script>
+        const loadingScreen = document.getElementById('loading-screen');
+        const bgMusic = document.getElementById('bg-music');
+        const musicToggle = document.getElementById('musicToggle');
+        const musicStatus = document.getElementById('musicStatus');
+
+        // Fungsi memutar audio otomatis
+        function playAudio() {
+            bgMusic.play().then(() => {
+                musicStatus.textContent = 'Music On';
+            }).catch(() => {
+                musicStatus.textContent = 'Music Off';
+            });
+        }
+
+        // Jalankan transisi fade-out animasi loading setelah halaman selesai dimuat
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                loadingScreen.classList.add('fade-out');
+                playAudio();
+            }, 700);
+        });
+
+        // Fallback Autoplay (Memutar musik pada klik/interaksi pertama jika browser memblokir autoplay)
+        document.addEventListener('click', () => {
+            if (bgMusic.paused) {
+                playAudio();
+            }
+        }, { once: true });
+
+        // Tombol Toggle Music di Navbar
+        musicToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (bgMusic.paused) {
+                bgMusic.play();
+                musicStatus.textContent = 'Music On';
+            } else {
+                bgMusic.pause();
+                musicStatus.textContent = 'Music Off';
+            }
+        });
+    </script>
+</body>
+</html>
